@@ -1,6 +1,7 @@
 from django.db import models
 import django.utils.timezone
 from users.models import User, AddressBook
+from company.models import Payment, Delivery, Weight
 
 
 class Status(models.Model):
@@ -17,53 +18,6 @@ class Status(models.Model):
         verbose_name = 'Статус'
         verbose_name_plural = 'Статусы'
 
-class Payment(models.Model):
-    # Способ оплаты #
-
-    name = models.CharField("Наименование", max_length=150)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        db_table = 'payment'
-        managed = True
-        verbose_name = 'Способ оплаты'
-        verbose_name_plural = 'Способы оплаты'
-
-
-class Delivery(models.Model):
-    # Вид доставки #
-
-    name = models.CharField("Наименование", max_length=150)
-    description = models.TextField("Описание")
-    price = models.PositiveIntegerField(
-        "Цена", default=0)
-
-    def __str__(self):
-        return '%s, %s' % (self.name, self.price)
-
-    class Meta:
-        db_table = 'delivery'
-        managed = True
-        verbose_name = 'Вид доставки'
-        verbose_name_plural = 'Виды доставки'
-
-class Weight(models.Model):
-    # Вес #
-
-    weight = models.PositiveIntegerField("Вес", default=0)
-    price = models.PositiveIntegerField(
-        "Цена", default=0)
-
-    def __str__(self):
-        return '%s, %s' % (self.weight, self.price)
-
-    class Meta:
-        db_table = 'weight'
-        managed = True
-        verbose_name = 'Вес'
-        verbose_name_plural = 'Вес'
 
 class Order(models.Model):
     # Заказы #

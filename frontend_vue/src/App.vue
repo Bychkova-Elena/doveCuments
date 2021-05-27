@@ -30,10 +30,10 @@
 
   <footer class="footer">
   <div class="is-flex is-align-items-center is-justify-content-space-evenly">
-  <div class="content">
-    <p><strong>Телефон</strong></p>
-    <p>Почта</p>
-    <p>Адрес</p>
+  <div class="content" v-for = "contact in contacts" :key="contact.id">
+    <p><strong>{{contact.phone}}</strong></p>
+    <p>{{contact.email}}</p>
+    <p>{{contact.address}}</p>
   </div>
   <div class="menu">
   <ul class="menu-list">
@@ -49,12 +49,30 @@
 </template>
 
 <script>
+import axios from "axios"
+
 export default {
   data(){
     return{
-      showMobileMenu: false
+      showMobileMenu: false,
+      contacts:[],
     }
-  }
+  },
+  mounted(){
+    this.getContacts()
+  },
+  methods: {
+    getContacts(){
+      axios
+      .get('api/v1/contacts/')
+      .then(response => {
+        this.contacts = response.data
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    }
+  },
 }
 </script>
 

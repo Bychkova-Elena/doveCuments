@@ -2,9 +2,9 @@
 <div>
   <section class="section">
   <div class="container is-fluid">
-  <div>
+  <div class="" v-for = "contact in contacts" :key="contact.id">
   <h1 class="title has-text-info">Сервис курьерской доставки документов</h1>
-  <h2 class="title has-text-info is-2"><strong>Телефон</strong></h2>
+  <h2 class="title has-text-info is-2"><strong>{{contact.phone}}</strong></h2>
   <figure class="image">
   <img src="../assets/dove.png" alt="голубь">
   </figure>
@@ -14,24 +14,28 @@
 
   <div class="mt-6">
   <h1 class="title has-text-info has-text-centered">Виды доставок</h1>
-  <div class="card">
+  <div class="is-flex is-justify-content-space-evenly is-align-content-center is-flex-wrap-wrap">
+  <div class="card m-3" v-for = "delivery in deliveries" :key="delivery.id">
   <header class="card-header">
     <p class="card-header-title">
-      Card header
+      {{delivery.name}}
     </p>
       </header>
     <div class="card-content">
     <div class="content">
-      Lorem ipsum leo risus, porta ac consectetur ac, vestibulum at eros. Donec id elit non mi porta gravida at eget metus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Cras mattis consectetur purus sit amet fermentum.
+      {{delivery.description}}
     </div>
   </div>
 </div>
+  </div>
+  <div class="is-flex is-justify-content-center is-align-self-center mt-6">
   <router-link to="/delivery-form" class="button is-rounded is-warning is-outlined">Заказать доставку</router-link>
+  </div>
   </div>
     </div>
   </section>
 
-    <div class="mt-6 p-6 has-background-light">
+    <div class="mt-3 p-6 has-background-light">
     <h1 class="title has-text-info has-text-centered">Необходимо оформлять заявки регулярно? <br> Зарегистрируйтесь!
 Или заполните короткую форму для разовой доставки на сайте.</h1>
 <div class="field is-grouped mt-6 is-flex is-justify-content-center">
@@ -48,15 +52,17 @@
 
       <section class="section">
   <div class="container is-fluid">
-  <div class="mt-6">
+  <div class="mt-3">
   <h1 class="title has-text-info has-text-centered">Способы оплаты</h1>
-  <div class="card">
+  <div class="is-flex is-justify-content-space-evenly is-align-content-center is-flex-wrap-wrap mt-6">
+  <div class="card m-3" v-for = "payment in payments" :key="payment.id">
   <header class="card-header">
     <p class="card-header-title">
-      Card header
+      {{payment.name}}
     </p>
       </header>
 </div>
+  </div>
   </div>
     </div>
   </section>
@@ -64,7 +70,58 @@
 </template>
 
 <script>
+import axios from "axios"
 
+export default {
+  data(){
+    return{
+      payments:[],
+      deliveries:[],
+      contacts:[],
+    }
+  },
+  mounted(){
+    this.getPayments(),
+    this.getDeliveries(),
+    this.getContacts()
+  },
+  methods: {
+    getPayments(){
+      axios
+      .get('api/v1/payment/')
+      .then(response => {
+        this.payments = response.data
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    },
+
+
+      getDeliveries(){
+      axios
+      .get('api/v1/delivery/')
+      .then(response => {
+        this.deliveries = response.data
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    },
+
+
+    getContacts(){
+      axios
+      .get('api/v1/contacts/')
+      .then(response => {
+        this.contacts = response.data
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    }
+  },
+}
 </script>
 
 <style lang="scss" scoped>

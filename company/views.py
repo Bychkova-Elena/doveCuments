@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 from .models import Contacts, Shedule, Payment, Delivery, Weight
-from .serializers import ContactsSerializer, DeliverySerializer, PaymentSerializer
+from .serializers import ContactsSerializer, DeliverySerializer, PaymentSerializer, WeightSerializer
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -31,4 +31,13 @@ class PaymentList(APIView):
 
         payment = Payment.objects.all()
         serializer = PaymentSerializer(payment, many=True)
+        return Response(serializer.data)
+
+class WeightList(APIView):
+  
+    def get(self, request):
+        '''Список веса'''
+
+        weight = Weight.objects.all()
+        serializer = WeightSerializer(weight, many=True)
         return Response(serializer.data)

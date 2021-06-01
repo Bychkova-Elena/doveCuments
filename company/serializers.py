@@ -23,3 +23,10 @@ class PaymentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Payment
         fields = ("__all__")
+
+class WeightSerializer(serializers.ModelSerializer):
+    # Вес #
+
+    class Meta:
+        model = Weight
+        fields = ("__all__")

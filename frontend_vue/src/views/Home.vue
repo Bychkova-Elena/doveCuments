@@ -1,132 +1,151 @@
 <template>
-<div>
-  <section class="section">
-  <div class="container is-fluid">
-  <div class="" v-for = "contact in contacts" :key="contact.id">
-  <h1 class="title has-text-info">Сервис курьерской доставки документов</h1>
-  <h2 class="title has-text-info is-2"><strong>{{contact.phone}}</strong></h2>
-  <figure class="image">
-  <img src="../assets/dove.png" alt="голубь">
-  </figure>
-  </div>
+  <div>
+    <section class="section">
+      <div class="container is-fluid">
+        <div class="">
+          <h1 class="title has-text-info">
+            Сервис курьерской доставки документов
+          </h1>
+          <h2
+            class="title has-text-info is-2"
+            v-for="contact in contacts"
+            :key="contact.id"
+          >
+            <strong>{{ contact.phone }}</strong>
+          </h2>
+          <figure class="image">
+            <img src="../assets/dove.png" alt="голубь" />
+          </figure>
+        </div>
 
-
-
-  <div class="mt-6">
-  <h1 class="title has-text-info has-text-centered">Виды доставок</h1>
-  <div class="is-flex is-justify-content-space-evenly is-align-content-center is-flex-wrap-wrap">
-  <div class="card m-3" v-for = "delivery in deliveries" :key="delivery.id">
-  <header class="card-header">
-    <p class="card-header-title">
-      {{delivery.name}}
-    </p>
-      </header>
-    <div class="card-content">
-    <div class="content">
-      {{delivery.description}}
-    </div>
-  </div>
-</div>
-  </div>
-  <div class="is-flex is-justify-content-center is-align-self-center mt-6">
-  <router-link to="/delivery-form" class="button is-rounded is-warning is-outlined">Заказать доставку</router-link>
-  </div>
-  </div>
-    </div>
-  </section>
+        <div class="mt-6">
+          <h1 class="title has-text-info has-text-centered">Виды доставок</h1>
+          <div
+            class="is-flex is-justify-content-space-evenly is-align-content-center is-flex-wrap-wrap"
+          >
+            <div
+              class="card m-3"
+              v-for="delivery in deliveries"
+              :key="delivery.id"
+            >
+              <header class="card-header">
+                <p class="card-header-title">
+                  {{ delivery.name }}
+                </p>
+              </header>
+              <div class="card-content">
+                <div class="content">
+                  {{ delivery.description }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="is-flex is-justify-content-center is-align-self-center mt-6"
+          >
+            <router-link
+              to="/order-form"
+              class="button is-rounded is-warning is-outlined"
+              >Заказать доставку</router-link
+            >
+          </div>
+        </div>
+      </div>
+    </section>
 
     <div class="mt-3 p-6 has-background-light">
-    <h1 class="title has-text-info has-text-centered">Необходимо оформлять заявки регулярно? <br> Зарегистрируйтесь!
-Или заполните короткую форму для разовой доставки на сайте.</h1>
-<div class="field is-grouped mt-6 is-flex is-justify-content-center">
-    <button class="button is-rounded is-warning mr-3">
-      Зарегистрироваться
-    </button>
-    <button class="button ml-6 is-rounded is-warning is-outlined">
-      Заказать доставку
-    </button>
-</div>
+      <h1 class="title has-text-info has-text-centered">
+        Необходимо оформлять заявки регулярно? <br />
+        Зарегистрируйтесь! Или заполните короткую форму для разовой доставки на
+        сайте.
+      </h1>
+      <div class="field is-grouped mt-6 is-flex is-justify-content-center">
+        <button class="button is-rounded is-warning mr-3">
+          Зарегистрироваться
+        </button>
+        <router-link
+          to="/order-form"
+          class="button ml-6 is-rounded is-warning is-outlined"
+          >Заказать доставку</router-link
+        >
+      </div>
     </div>
-    
 
-
-      <section class="section">
-  <div class="container is-fluid">
-  <div class="mt-3">
-  <h1 class="title has-text-info has-text-centered">Способы оплаты</h1>
-  <div class="is-flex is-justify-content-space-evenly is-align-content-center is-flex-wrap-wrap mt-6">
-  <div class="card m-3" v-for = "payment in payments" :key="payment.id">
-  <header class="card-header">
-    <p class="card-header-title">
-      {{payment.name}}
-    </p>
-      </header>
-</div>
+    <section class="section">
+      <div class="container is-fluid">
+        <div class="mt-3">
+          <h1 class="title has-text-info has-text-centered">Способы оплаты</h1>
+          <div
+            class="is-flex is-justify-content-space-evenly is-align-content-center is-flex-wrap-wrap mt-6"
+          >
+            <div class="card m-3" v-for="payment in payments" :key="payment.id">
+              <header class="card-header">
+                <p class="card-header-title">
+                  {{ payment.name }}
+                </p>
+              </header>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
-  </div>
-    </div>
-  </section>
-</div>
 </template>
 
 <script>
-import axios from "axios"
+import axios from "axios";
 
 export default {
-  data(){
-    return{
-      payments:[],
-      deliveries:[],
-      contacts:[],
-    }
+  data() {
+    return {
+      payments: [],
+      deliveries: [],
+      contacts: []
+    };
   },
-  mounted(){
-    this.getPayments(),
-    this.getDeliveries(),
-    this.getContacts()
+  mounted() {
+    this.getPayments(), this.getDeliveries(), this.getContacts();
   },
   methods: {
-    getPayments(){
+    getPayments() {
       axios
-      .get('api/v1/payment/')
-      .then(response => {
-        this.payments = response.data
-      })
-      .catch(error => {
-        console.log(error)
-      })
+        .get("api/v1/payment/")
+        .then(response => {
+          this.payments = response.data;
+        })
+        .catch(error => {
+          console.log(error);
+        });
     },
 
-
-      getDeliveries(){
+    getDeliveries() {
       axios
-      .get('api/v1/delivery/')
-      .then(response => {
-        this.deliveries = response.data
-      })
-      .catch(error => {
-        console.log(error)
-      })
+        .get("api/v1/delivery/")
+        .then(response => {
+          this.deliveries = response.data;
+        })
+        .catch(error => {
+          console.log(error);
+        });
     },
 
-
-    getContacts(){
+    getContacts() {
       axios
-      .get('api/v1/contacts/')
-      .then(response => {
-        this.contacts = response.data
-      })
-      .catch(error => {
-        console.log(error)
-      })
+        .get("api/v1/contacts/")
+        .then(response => {
+          this.contacts = response.data;
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
-  },
-}
+  }
+};
 </script>
 
 <style lang="scss" scoped>
-.image{
+.image {
   width: 20%;
-  margin-left:20%;
+  margin-left: 20%;
 }
 </style>

@@ -66,7 +66,7 @@ class Delivery(models.Model):
 class Weight(models.Model):
     # Вес #
 
-    weight = models.PositiveIntegerField("Вес", default=0)
+    weight = models.CharField("Вес", max_length=100)
     price = models.PositiveIntegerField(
         "Цена", default=0)
 

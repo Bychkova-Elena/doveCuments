@@ -19,7 +19,7 @@
           </div>
           <div class="navbar-item navbar-end">
             <div class="buttons">
-              <router-link to="/delivery-form" class="button is-rounded is-warning is-outlined">Заказать доставку</router-link>
+              <router-link to="/order-form" class="button is-rounded is-warning is-outlined">Заказать доставку</router-link>
               <router-link to="/log-in" class="button is-rounded is-warning">Вход/Регистрация</router-link>
             </div>
           </div>
@@ -37,7 +37,7 @@
   </div>
   <div class="menu">
   <ul class="menu-list">
-    <li><router-link to="/delivery-form" class="navbar-item">Заказать доставку</router-link></li>
+    <li><router-link to="/order-form" class="navbar-item">Заказать доставку</router-link></li>
     <router-link to="/courier" class="navbar-item">Курьерам</router-link>
     <router-link to="/tariffs" class="navbar-item">Тарифы</router-link>
     <router-link to="/contacts" class="navbar-item">Контакты</router-link>
@@ -56,6 +56,15 @@ export default {
     return{
       showMobileMenu: false,
       contacts:[],
+    }
+  },
+  beforeCreate() {
+    this.$store.commit('initializeStore')
+    const token = this.$store.state.token
+    if (token) {
+        axios.defaults.headers.common['Authorization'] = "Token " + token
+    } else {
+        axios.defaults.headers.common['Authorization'] = ""
     }
   },
   mounted(){

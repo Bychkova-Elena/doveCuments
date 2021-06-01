@@ -3,6 +3,7 @@ from django.db import models
 
 class User(AbstractUser):
 
+    fio = models.CharField("ФИО", max_length=100)
     phone = models.CharField("Телефон", max_length=15, null=True)
   
     class Meta:

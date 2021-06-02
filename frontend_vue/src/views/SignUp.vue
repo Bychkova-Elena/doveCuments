@@ -59,6 +59,9 @@ data() {
       errors:[]
   }
 },
+mounted() {
+        document.title = 'Регистрация | DoveCuments'
+    },
  methods: {
         submitForm() {
             this.errors = []

@@ -104,6 +104,7 @@ export default {
     };
   },
   mounted() {
+    document.title = 'Доставка документов | DoveCuments'
     this.getPayments(), this.getDeliveries(), this.getContacts();
   },
   methods: {

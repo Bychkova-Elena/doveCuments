@@ -51,7 +51,7 @@ export default {
         }
     },
     mounted() {
-        document.title = 'Log In | Djackets'
+        document.title = ' Вход | DoveCuments'
     },
     methods: {
         async submitForm() {
@@ -69,7 +69,7 @@ export default {
                     
                     axios.defaults.headers.common["Authorization"] = "Token " + token
                     localStorage.setItem("token", token)
-                    const toPath = this.$route.query.to || '/about'
+                    const toPath = this.$route.query.to || '/my-account'
                     this.$router.push(toPath)
                 })
                 .catch(error => {

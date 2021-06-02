@@ -135,6 +135,7 @@ data() {
     };
   },
   mounted() {
+    document.title = 'Заказ доставки | DoveCuments'
     this.getPayments(), this.getDeliveries(), this.getWeight();
   },
   methods: {

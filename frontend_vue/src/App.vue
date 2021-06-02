@@ -20,7 +20,13 @@
           <div class="navbar-item navbar-end">
             <div class="buttons">
               <router-link to="/order-form" class="button is-rounded is-warning is-outlined">Заказать доставку</router-link>
-              <router-link to="/log-in" class="button is-rounded is-warning">Вход/Регистрация</router-link>
+              <template v-if="$store.state.isAuthenticated">
+                <router-link to="/my-account" class="button is-rounded is-warning">Мой аккаунт</router-link>
+              </template>
+
+              <template v-else>
+                <router-link to="/log-in" class="button is-rounded is-warning">Вход/Регистрация</router-link>
+              </template>
             </div>
           </div>
           </div>

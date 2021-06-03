@@ -9,6 +9,7 @@
   <div class="control ">
     <div class="select">
       <select v-model="form.delivery">
+        <option value="0" selected>Выберите вид доставки</option>
         <option v-for="delivery in deliveries" :key="delivery.id" :value="delivery.id">{{delivery.name}}</option>
       </select>
     </div>
@@ -20,6 +21,7 @@
   <div class="control">
     <div class="select">
       <select v-model="form.weight">
+        <option value="0" selected>Выберите вес документов</option>
         <option v-for="weight in weights" :key="weight.id" :value="weight.id">{{weight.weight}}</option>
       </select>
     </div>
@@ -72,6 +74,7 @@
   <div class="control">
     <div class="select">
       <select v-model="form.payment">
+        <option value="0" selected>Выберите способ оплаты</option>
         <option v-for="payment in payments" :key="payment.id" :value="payment.id">{{payment.name}}</option>
       </select>
     </div>
@@ -92,11 +95,15 @@
   </div>
 </div>
 
+  <div class="notification is-danger" v-if="errors.length">
+  <p v-for="error in errors" v-bind:key="error">{{ error }}</p>
+  </div>
+
 <div class="field">
   <p class="mb-3"><span class="has-text-danger">*</span> - Поля, обязательные для заполнения</p>
-  <label class="label mb-3">Итого: {{form.price}}</label>
+  <label class="label mb-3">Итого: {{totalPrice}}</label>
   <div class="control">
-    <button v-on:click="submit()" class="button is-link">Заказать</button>
+    <button class="button is-link">Заказать</button>
   </div>
 </div>
 </form>
@@ -108,6 +115,7 @@
 
 <script>
 import axios from "axios";
+import {toast} from "bulma-toast";
 
 export default {
 data() {
@@ -122,16 +130,17 @@ data() {
                 sendersAddress: '',
                 sendersPhone: '',
                 sendersFio: '',
-                sendersDate: '', 
+                sendersDate: null, 
                 recipientAddress: '',
                 recipientPhone: '',
                 recipientFio: '',
-                recipientDate: '',
-                price: 0,
+                recipientDate: null,
+                price: 100,
                 comment: '',
                 value: 0,
                 payment: 0
-            }
+            },
+            errors: []
     };
   },
   mounted() {
@@ -172,24 +181,93 @@ data() {
         });
   },
 
-   submit(){
-     console.log(this.form);
-            axios
-                .post("api/v1/orders/", this.form)
-                .then((res) => {
-                  console.log(this.form);
-                     //Perform Success Action
-                 })
-                 .catch((error) => {
-                     console.log(error);
-                 })
-                 .finally(() => {
-                     //Perform action in always
-                 });
-        }
-}
+
+      async submitForm() {
+            this.errors = []
+            if (this.form.delivery === 0) {
+                this.errors.push('Не указан способ доставки!')
+            }
+            if (this.form.weight === 0) {
+                this.errors.push('Не указан вес документов!')
+            }
+            if (this.form.sendersAddress === '') {
+                this.errors.push('Не указан адрес отправителя!')
+            }
+            if (this.form.sendersPhone === '') {
+                this.errors.push('Не указан телефон отправителя!')
+            }
+            if (this.form.sendersFio === '') {
+                this.errors.push('Не указано фио отправителя!')
+            }
+            if (this.form.recipientAddress === '') {
+                this.errors.push('Не указан адрес получателя!')
+            }
+            if (this.form.recipientPhone === '') {
+                this.errors.push('Не указан телефон получателя!')
+            }
+            if (this.form.recipientFio === '') {
+                this.errors.push('Не указано фио получателя!')
+            }
+            if (this.form.payment === '') {
+                this.errors.push('Не указан способ оплаты!')
+            }
+            if (!this.errors.length) {
+              
+              const data = {
+                'user':null,
+                'delivery': this.form.delivery,
+                'weight': this.form.weight,
+                'sendersAddress': this.form.sendersAddress,
+                'sendersPhone': this.form.sendersPhone,
+                'sendersFio': this.form.sendersFio,
+                'sendersDate': this.form.sendersDate,
+                'recipientAddress': this.form.recipientAddress,
+                'recipientPhone': this.form.recipientPhone,
+                'recipientFio': this.form.recipientFio,
+                'recipientDate': this.form.recipientDate,
+                'payment': this.form.payment,
+                'value': this.form.value,
+                'comment': this.form.comment,
+                'price': this.form.price
+            }
+
+          await axios
+                .post('/api/v1/create-orders/', data)
+                .then(response => {
+                    this.$router.push('/');
+                    toast({
+                            message: 'Заказ успешно создан!',
+                            type: 'is-success',
+                            dismissible: true,
+                            pauseOnHover: true,
+                            duration: 2000,
+                            position: 'bottom-right',
+                        })
+                })
+                .catch(error => {
+                    this.errors.push('Что-то пошло не так. Попробуйте ещё раз.')
+                    console.log(error)
+                })
+      }
+  },
+},
+
+computed: {
+      totalPrice() {
+            this.form.price = 100+ parseInt(this.form.value)
+            // if (this.form.delivery !== 0){
+            //   this.form.price += parseInt(this.deliveries[1].price);
+            // }
+            // if (this.form.weight !== 0){
+            //   this.form.price += parseInt(this.weights[1].price);
+            // }
+            return this.form.price;
+        }, 
+    }
 }
 </script>
 <style lang="scss" scoped>
-
+select{
+  width:50rem;
+}
 </style>

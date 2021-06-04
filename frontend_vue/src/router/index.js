@@ -7,12 +7,19 @@ import OrderForm from '../views/OrderForm.vue'
 import SignUp from '../views/SignUp.vue'
 import LogIn from '../views/LogIn.vue'
 import MyAccount from '../views/MyAccount.vue'
+import MyOrders from '../views/MyOrders.vue'
+import Tariffs from '../views/Tariffs.vue'
 
 const routes = [
   {
     path: '/',
     name: 'Home',
     component: Home
+  },
+    {
+    path: '/tariffs',
+    name: 'Tariffs',
+    component: Tariffs
   },
   {
     path: '/about',
@@ -42,8 +49,16 @@ const routes = [
     name: 'MyAccount',
     component: MyAccount,
     meta: {
-        requireLogin: true
-    }
+      requireLogin: true,
+    },
+              children: [
+                {
+                  path: '/orders',
+                  name: "MyOrders",
+                  component: MyOrders
+                },
+
+      ]
   },
 ]
 

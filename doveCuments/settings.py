@@ -26,6 +26,8 @@ SECRET_KEY = '(#vr^+%^y#49)uw3t(12%m2fhppql!yv2r*$z%zvg+lcf-5y^r'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+STRIPE_SECRET_KEY = 'sk_test_51HIHiuKBJV2qeWbD4IBpAODack7r7r9LJ0Y65zSFx7jUUwgy2nfKEgQGvorv1p2xp7tgMsJ5N9EW7K1lBdPnFnyK00kdrS27cj'
+
 ALLOWED_HOSTS = []
 
 

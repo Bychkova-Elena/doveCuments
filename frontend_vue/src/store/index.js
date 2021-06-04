@@ -3,16 +3,17 @@ import { createStore } from 'vuex'
 export default createStore({
   state: {
     isAuthenticated: false,
-    token: ''
+    token: '',
+    isLoading: false
   },
   mutations: {
     initializeStore(state) {
       if (localStorage.getItem('token')) {
-          state.token = localStorage.getItem('token')
-          state.isAuthenticated = true
+        state.token = localStorage.getItem('token'),
+        state.isAuthenticated = true
       } else {
-          state.token = ''
-          state.isAuthenticated = false
+        state.token = '',
+        state.isAuthenticated = false
       } 
     },
     setToken(state, token) {

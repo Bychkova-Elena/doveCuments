@@ -16,21 +16,6 @@ class Contacts(models.Model):
         verbose_name = 'Контакты'
         verbose_name_plural = 'Контакты'
 
-class Shedule(models.Model):
-    # График работы #
-
-    applications = models.CharField("Прием заявок", max_length=100)
-    callCentre = models.CharField("Контакт-центр", max_length=100)
-
-    def __str__(self):
-        return '%s, %s' % (self.applications, self.callCentre)
-
-    class Meta:
-        db_table = 'shedule'
-        managed = True
-        verbose_name = 'График работы'
-        verbose_name_plural = 'График работы'
-
 class Payment(models.Model):
     # Способ оплаты #
 

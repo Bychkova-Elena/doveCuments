@@ -1,6 +1,6 @@
 from rest_framework import fields, serializers
 
-from .models import Contacts, Shedule, Payment, Delivery, Weight
+from .models import Contacts, Payment, Delivery, Weight
 
 
 class ContactsSerializer(serializers.ModelSerializer):

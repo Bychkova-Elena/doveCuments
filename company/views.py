@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from .models import Contacts, Shedule, Payment, Delivery, Weight
+from .models import Contacts, Payment, Delivery, Weight
 from .serializers import ContactsSerializer, DeliverySerializer, PaymentSerializer, WeightSerializer
 
 from rest_framework.response import Response

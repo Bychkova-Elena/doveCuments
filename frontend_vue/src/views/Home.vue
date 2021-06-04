@@ -6,6 +6,8 @@
           <h1 class="title has-text-info">
             Сервис курьерской доставки документов
           </h1>
+          <div class="columns">
+            <div class="column">
           <h2
             class="title has-text-info is-2"
             v-for="contact in contacts"
@@ -16,6 +18,12 @@
           <figure class="image">
             <img src="../assets/dove.png" alt="голубь" />
           </figure>
+          </div>
+          <div class="column">
+            <h3 class="mb-1">Узнайте примерную стоимость доставки</h3>
+            <TariffsTable></TariffsTable>
+          </div>
+          </div>
         </div>
 
         <div class="mt-6">
@@ -94,6 +102,7 @@
 
 <script>
 import axios from "axios";
+import TariffsTable from "@/components/TariffsTable.vue";
 
 export default {
   data() {
@@ -102,6 +111,9 @@ export default {
       deliveries: [],
       contacts: []
     };
+  },
+    components: {
+    TariffsTable
   },
   mounted() {
     document.title = 'Доставка документов | DoveCuments'
@@ -145,8 +157,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.image {
-  width: 20%;
-  margin-left: 20%;
+.image{
+ width:30%;
+ margin-left:40%;
 }
+
 </style>

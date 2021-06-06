@@ -10,6 +10,7 @@ import MyAccount from '../views/MyAccount.vue'
 import MyOrders from '../views/MyOrders.vue'
 import Tariffs from '../views/Tariffs.vue'
 import Courier from '../views/Courier.vue'
+import Contacts from '../views/Contacts.vue'
 
 const routes = [
   {
@@ -26,6 +27,11 @@ const routes = [
     path: '/courier',
     name: 'Courier',
     component: Courier
+  },
+      {
+    path: '/contacts',
+    name: 'Contacts',
+    component: Contacts
   },
   {
     path: '/about',

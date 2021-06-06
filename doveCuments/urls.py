@@ -10,7 +10,8 @@ urlpatterns = [
     path('api/v1/', include('djoser.urls')),
     path('api/v1/', include('djoser.urls.authtoken')),
     path('api/v1/', include("company.urls")),
-    path('api/v1/', include("orders.urls"))
-    ,path('api/v1/', include("users.urls")),
+    path('api/v1/', include("orders.urls")),
+    path('api/v1/', include("users.urls")),
+    path('api/v1/', include("couriers.urls")),
     # path('graphql/', csrf_exempt(GraphQLView.as_view(graphiql=True))),
 ]

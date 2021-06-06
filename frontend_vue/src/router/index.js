@@ -9,6 +9,7 @@ import LogIn from '../views/LogIn.vue'
 import MyAccount from '../views/MyAccount.vue'
 import MyOrders from '../views/MyOrders.vue'
 import Tariffs from '../views/Tariffs.vue'
+import Courier from '../views/Courier.vue'
 
 const routes = [
   {
@@ -20,6 +21,11 @@ const routes = [
     path: '/tariffs',
     name: 'Tariffs',
     component: Tariffs
+  },
+      {
+    path: '/courier',
+    name: 'Courier',
+    component: Courier
   },
   {
     path: '/about',

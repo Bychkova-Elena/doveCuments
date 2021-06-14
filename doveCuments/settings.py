@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'graphene_django',
     'rest_framework',
     'rest_framework.authtoken',
+    'import_export',
     'corsheaders',
     'djoser',
     'webpack_loader',

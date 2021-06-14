@@ -1,6 +1,7 @@
 from django.db import models
 import django.utils.timezone
 from users.models import User
+from couriers.models import Couriers
 from company.models import Payment, Delivery, Weight
 
 class Order(models.Model):
@@ -48,6 +49,8 @@ class Order(models.Model):
         Weight, verbose_name="Вес", on_delete=models.PROTECT)
     value = models.PositiveIntegerField(
         "Ценность", default=0)
+    couriers = models.ForeignKey(
+        Couriers, verbose_name="Курьер", on_delete=models.DO_NOTHING, null=True, blank=True)
 
     
 

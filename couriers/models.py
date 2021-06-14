@@ -1,4 +1,5 @@
 from django.db import models
+from users.models import User
 
 class Applications(models.Model):
     # Заявки #
@@ -14,3 +15,18 @@ class Applications(models.Model):
         managed = True
         verbose_name = 'Заявка'
         verbose_name_plural = 'Заявки'
+
+class Couriers(models.Model):
+    # Курьеры #
+
+    user = models.ForeignKey(
+        User, verbose_name="Пользователь", on_delete=models.CASCADE)
+
+    def __str__(self):
+        return '%s' % (self.user)
+
+    class Meta:
+        db_table = 'couriers'
+        managed = True
+        verbose_name = 'Курьер'
+        verbose_name_plural = 'Курьеры'
